@@ -24,13 +24,15 @@ public class ButtonPanel extends JFrame implements ActionListener {
 	JLabel display;
 	JButton numButton;
 	JButton clearButton;
+	JButton enterButton;
 	String displayContent = "";
-	String[] numPadContent = {"1","2","3","4","5","6","7","8","9","from","0","to"};
+	String[] numPadContent = {"1","2","3","4","5","6","7","8","9","0","to"};
 	ArrayList<JButton> buttonList;
+	Main m;
 	
 	
-	public ButtonPanel() {
-		
+	public ButtonPanel(Main main) {
+		this.m=main;
 		
 		JPanel pane = new JPanel();
 		pane.setPreferredSize(new Dimension(400, 400));
@@ -40,11 +42,11 @@ public class ButtonPanel extends JFrame implements ActionListener {
 		display.setPreferredSize(new Dimension(320, 50));
 		
 		display.setBorder(BorderFactory.createLoweredBevelBorder());
-		
+		display.setText("From ");
 		pane.add(display, BorderLayout.NORTH);
 		
 		// initialize the buttonList
-		buttonList = new ArrayList<JButton>(12);
+		buttonList = new ArrayList<JButton>(11);
 		JPanel numberPanel = new JPanel();
 		
 		numberPanel.setLayout(new GridLayout(4,3,0,0));
@@ -68,13 +70,15 @@ public class ButtonPanel extends JFrame implements ActionListener {
 		
 		
 		clearButton = new JButton("Clear");
-		clearButton.setPreferredSize(new Dimension(320, 50));
+		clearButton.setPreferredSize(new Dimension(160, 50));
 		clearButton.addActionListener(this);
 		
-
-		
+		enterButton = new JButton("Enter");
+		enterButton.setPreferredSize(new Dimension(160, 50));
+		enterButton.addActionListener(this);
 		// add Clear button to bottom of display
 		pane.add(clearButton, BorderLayout.SOUTH);
+		pane.add(enterButton, BorderLayout.SOUTH);
 		add(pane,BorderLayout.CENTER);
 	}
 	
@@ -85,26 +89,30 @@ public class ButtonPanel extends JFrame implements ActionListener {
 		
 		for (int a = 0; a < buttonList.size(); a++) {
 			if (e.getSource().equals(buttonList.get(a))) {
-				additionalText = buttonList.get(a).getText();
+				additionalText = buttonList.get(a).getText()+" ";
 			}
 		}
 		
 		
 		if (e.getSource().equals(clearButton)) {
-			textThere = "";
+			textThere = "From ";
+		}
+		if (e.getSource().equals(enterButton)) {
+			m.setTextFromPanel(textThere);
+			textThere = "From ";
+			
 		}
 		display.setText(textThere.concat(additionalText));
 	}
-	
-	public static void main(String[] args) {
-		
-		//create and set up the window.
-		JFrame frame = new ButtonPanel();
+
+	public void main() {
+		JFrame frame = new ButtonPanel(m);
 		frame.setTitle("Button Panel");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1500,1500);
 		frame.setLocationRelativeTo(null);
 		frame.pack();
 		frame.setVisible(true);
+		
 	}
 }

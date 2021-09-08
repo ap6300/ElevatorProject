@@ -2,21 +2,37 @@ package com.fdmgroup;
 
 public class Elevator {
 	
-	int ElevatorId; 
+	private int direction;
+	private int currentFloor;
+	private int id;
 	
-	int currentFloor;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
-	public int getElevatorId() {
-		return ElevatorId;
+	public Elevator(int direction, int currentFloor) {
+		this.direction = direction;
+		this.currentFloor = currentFloor;
 	}
-	public void setElevatorId(int elevatorId) {
-		ElevatorId = elevatorId;
+
+	public int getDirection() {
+		return direction;
 	}
-	public int getCurrentPosition() {
+
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+
+	public int getCurrentFloor() {
 		return currentFloor;
 	}
-	public void setCurrentPosition(int currentPosition) {
-		this.currentFloor = currentPosition;
+
+	public void setCurrentFloor(int currentFloor) {
+		this.currentFloor = currentFloor;
 	}
 	 
 }
